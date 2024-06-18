@@ -296,11 +296,14 @@ def create_lower_func(extern_func_map):
             dtype = "uint" + str(t.bits)
             if t.lanes > 1:
                 dtype += "x" + str(t.lanes)
+        
 
         key = t.bits
         if isinstance(op, _Cast):
             src_bits = DataType(op.value.dtype).bits
             key = (src_bits, t.bits)
+
+        #import pdb; pdb.set_trace()
 
         if key not in extern_func_map:
             raise RuntimeError(f"missing key {key} in extern_func_map for {op.astext()}")
